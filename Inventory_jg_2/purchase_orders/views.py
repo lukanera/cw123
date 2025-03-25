@@ -4,13 +4,13 @@ from .models import PurchaseOrder, PurchaseOrderItem
 from rest_framework.decorators import action
 from  rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
-from .filters import PurchaseFilter
+from .filters import PurchaseOrderFilter, PurchaseOrderItemFilter
 
 class PurchaseOrderViewSet(ModelViewSet):
     queryset = PurchaseOrder.objects.all()
     serializer_class = PurchaseOrderSerializer
     filter_backends = (DjangoFilterBackend,)
-    filterset_class = PurchaseFilter
+    filterset_class = PurchaseOrderFilter
 
     @action(detail=True, methods=['post'])
     def validate(self, request, pk):
@@ -30,6 +30,5 @@ class PurchaseOrderViewSet(ModelViewSet):
 class PurchaseOrderItemViewSet(ModelViewSet):
     queryset = PurchaseOrderItem.objects.all()
     serializer_class = PurchaseOrderItemSerializer
-
-
-
+    filter_backends = (DjangoFilterBackend,)
+    filterset_class = PurchaseOrderItemFilter

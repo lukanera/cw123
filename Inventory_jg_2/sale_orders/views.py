@@ -4,14 +4,13 @@ from .models import SaleOrder, SaleOrderItem
 from rest_framework.decorators import action
 from  rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
-
-from .filters import SaleItemFilter
+from .filters import SaleOrderFilter, SaleOrderItemFilter
 
 class SaleOrderViewSet(ModelViewSet):
     queryset = SaleOrder.objects.all()
     serializer_class = SaleOrderSerializer
-    filter_backends = (DjangoFilterBackend)
-    filterset_class = SaleItemFilter
+    filter_backends = (DjangoFilterBackend,)
+    filterset_class = SaleOrderFilter
 
     @action(detail=True, methods=['post'])
     def validate(self, request, pk):
@@ -35,6 +34,5 @@ class SaleOrderViewSet(ModelViewSet):
 class SaleOrderItemViewSet(ModelViewSet):
     queryset = SaleOrderItem.objects.all()
     serializer_class = SaleOrderItemSerializer
-
-
-
+    filter_backends = (DjangoFilterBackend,)
+    filterset_class = SaleOrderItemFilter
